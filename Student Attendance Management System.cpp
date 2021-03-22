@@ -2,14 +2,21 @@
 #include<fstream>
 #include<stdlib.h>
 using namespace std;
+/**
+ Class that defines basic methods of attendence
+*/
 class attend
 {
-        float p=0,t=0,w;
+		float p=0; // No. of days user is present
+		float t=0; // Total no. of days
         public:
                 int enter();
                 void calculate();
 };
-int attend::enter()//update the attendance 
+/**
+	This method updates the attendence of an user
+*/
+int attend::enter() 
 {
         int date,month,year;
         int i,n,k,a,c;
@@ -21,6 +28,7 @@ int attend::enter()//update the attendance
         	cout<<"->Enter DATE/MONTH/YEAR: "<<endl;
         	cin>>date>>month>>year;
         	cout<<endl;
+			// Validating user input for date
                 if(month== 1||month==3||month==5||month==7||month==8||month==10||month==12)
                 {
                 		if(date>31||date==0)
@@ -134,13 +142,16 @@ int attend::enter()//update the attendance
         }
 
 }
+/**
+This method calculates and displays the user attendence
+*/
 void attend::calculate()//calculate the percentage
 {
          int x,r;
          float s;
         x=(t*75)/100;
         s=(p*100)/t;
-        if(s<75&&s>65)
+        if(s<75&&s>65) // Attendence is b/w 65 to 75
         {
         		cout<<"   _________________________________________________________________________"<<endl<<endl;
                 cout<<"                           YOUR ATTENDANCE IS LOW : "<<s<<"%"<<endl<<endl;
@@ -149,7 +160,7 @@ void attend::calculate()//calculate the percentage
                 cout<<"                        you must have attended"<<r<<"classes                "<<endl<<endl;
                 cout<<"   _________________________________________________________________________"<<endl<<endl;
         }
-         if(s<65)
+         if(s<65) 
         {
                 int y;
                 y=(t*65)/100;
@@ -176,6 +187,8 @@ int main()
 {
         attend o1,o2,o3;
         int a,w;
+		// We are defining 2 file streams here 1 for reading only and one for writting only
+		// We will write and read the same file i.e. attendance1.txt in our case
         ifstream file1;
         ofstream file2;
         cout<<endl;
@@ -199,10 +212,12 @@ int main()
         		file1.close();
         		break;
         	case 2:
+				// In this case we are reading the file first, then overwritting that file 
+				// with new changes
 				file1.open("attendance1.txt");
 				file1.read((char *)& o2, sizeof(o2));
 				file1.close();
-				o2.enter();
+				o2.enter(); // Updating stuff
 				file2.open("attendance1.txt");
 				file2.write((char *)& o2, sizeof(o2));
 				file2.close();
